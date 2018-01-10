@@ -1,0 +1,72 @@
+<!-- <ul>
+  <li ng-repeat="rule in $ctrl.rules.items">{{rule.title}}</li>
+</ul> -->
+
+<div id="rule-container">
+  <div class="row">
+      <div class="rule table-filters">
+          <div id="itemsPerPageContainer" class="col-lg-12 col-md-12 text-right">
+              <span list-counter></span>
+              <span>
+                  {{ 'commission-sharing.resultsPerPage'  }}
+                  : <select ng-model="$ctrl.rules.pageSize" ng-options="resultsPerPageOption for resultsPerPageOption in $ctrl.rules.resultsPerPageOptions" ng-change="$ctrl.rules.changePage($ctrl.rules.DEFAULT_PAGE_NO, $ctrl.rules.pageSize)"></select>
+              </span>
+          </div>
+      </div>
+  </div>
+  <div class="table-responsive">
+      <table class="table table-striped table-hover" dw-loading="ruleList" dw-loading-options="{text:'', spinnerOptions:{color:'#999'}, className: 'greyed-out-overlay'}">
+          <thead>
+          <tr>
+              <th class="col-lg-1 sortable" list-column-sort ng-click="sortColumn('id')">
+                  <span id="col-rule-id">{{ 'commission-sharing.id'  }}</span>
+              </th>
+              <th class="col-lg-2 sortable" list-column-sort ng-click="sortColumn('title')">
+                  <span id="col-rule-title">{{ 'commission-sharing.ruleTitle'  }}</span>
+              </th>
+              <th class="col-lg-2 sortable" list-column-sort ng-click="sortColumn('publisherId')">
+                  <span id="col-rule-publisherId">{{ 'commission-sharing.publisherId'  }}</span>
+              </th>
+              <th class="col-lg-2" ng-click="sortColumn('publisherName')">
+                  <span id="col-rule-publisherName">{{ 'commission-sharing.publisherName'  }}</span>
+              </th>
+              <th class="sortable" list-column-sort ng-click="sortColumn('publisherShare')">
+                  <span id="col-rule-publisherShare">{{ 'commission-sharing.share'  }}</span>
+              </th>
+              <th class="sortable" list-column-sort ng-click="sortColumn('created')">
+                  <span id="col-rule-created">{{ 'commission-sharing.created'  }}</span>
+              </th>
+              <th class="sortable" list-column-sort ng-click="sortColumn('modified')">
+                  <span id="col-rule-modified">{{ 'commission-sharing.lastModified'  }}</span>
+              </th>
+              <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr id="rule-{{ rule.id }}" ng-repeat="rule in $ctrl.rules.items" edit-rule rule="rule" create-form-visible="showRuleForm" edit-form="sPController.templates.ruleForm" commission-share-minimum-value="sPController.commissionShareMinimumValue" commission-share-maximum-value="sPController.commissionShareMaximumValue" is-share-within-range="sPController.isShareWithinRange">
+              <td>{{ rule.id }}</td>
+              <td class="text-wrap">{{ rule.title }}</td>
+              <td>{{ rule.publisherId }}</td>
+              <td class="text-wrap">{{ rule.publisherName }}</td>
+              <td>{{ rule.publisherShare | number }} %</td>
+              <td>{{ rule.created | date:'short' }}</td>
+              <td>{{ rule.modified | date:'short' }}</td>
+              <td class="text-right">
+                  <a href="#" class="edit-button"><i class="fa fa-pencil"></i></a>
+                  <a delete-rule ng-click="showDeleteRuleModal(rule)" href="#" class="delete-button"><i class="fa fa-times"></i></a>
+              </td>
+          </tr>
+              <tr ng-show="$ctrl.rules.items == false">
+                  <td colspan="8">{{ 'commission-sharing.noResults'  }}</td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+  <div class="rules">
+      <div class="col-lg-12 col-md-12">
+          <div class="pagination">
+              <ul uib-pagination total-items="$ctrl.rules.totalItems" items-per-page="$ctrl.rules.pageSize" ng-model="$ctrl.rules.page" template-url="pagination" ng-change="$ctrl.rules.changePage()" previous-text="{{ 'commission-sharing.previousPage'  }}" next-text="{{ 'commission-sharing.nextPage'  }}" force-ellipses="true" max-size="$ctrl.rules.PAGINATOR_PAGE_SIZE"></ul>
+          </div>
+      </div>
+  </div>
+</div>

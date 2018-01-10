@@ -4,10 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NxModule } from '@nrwl/nx';
 import { configureNwrlPoc, upgradedComponents } from '../nwrl-poc-setup';
 import { UpgradeModule } from '@angular/upgrade/static';
-
+import { commissionRulesDirective } from './upgraded-components/comission-rules';
 @NgModule({
   imports: [BrowserModule, NxModule.forRoot(), UpgradeModule],
-  declarations: [AppComponent, ...upgradedComponents],
+  declarations: [
+    AppComponent,
+    commissionRulesDirective, 
+    ...upgradedComponents],
   entryComponents: [AppComponent]
 })
 export class AppModule {
